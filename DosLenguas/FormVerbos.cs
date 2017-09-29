@@ -29,10 +29,10 @@ namespace DosLenguas
 			"tratar", "cavar", "hacer", "dibujar", "soñar", "beber", "conducir", "comer", "caer", 
 			"alimentar", "sentirse", "pelearse", "encontrar", "huir", "volar", "prohibir", "olvidar (se)",
 			"perdonar", "helarse", "conseguir", "dar", "ir", "moler", "crecer", "colgar", "tener", 
-			"escuchar", "esconderse", "golpear", "agarrar (se)", "daño", "guardar", "arrodillarse", 
+			"escuchar", "esconderse", "agarrar (se)", "daño", "guardar", "arrodillarse", 
 			"conocer", "poner", "llevar", "apoyarse", "brincar", "aprender", "dejar", "prestar", 
 			"permitir", "echarse", "encender (se)", "perder", "hacer", "significar", 
-			"encontrar", "vencer (se)", "pagar", "poner", "leer", "montar", "sonar", 
+			"encontrar", "vencer", "pagar", "poner", "leer", "montar", "sonar", 
 			"levantarse", "correr", "serrar", "decir", "ver", "buscar", "vender",
 			"enviar", "poner", "coser", "agitar", "esquilar", "brillar", "disparar", "mostrar", 
 			"encoger (se)", "cerrarse", "cantar","coger"
@@ -124,11 +124,14 @@ namespace DosLenguas
                       select c;
             if (res.Count() >= 1)
             {
+                Word d = new Word();
                 foreach (Word element in res)
                 {
                     richTextBox.Text = ("verbo: " + res.First().ToJson());
+                    if (element.Esp.Equals(verbosIregulares[p]))
+                        d = element;
                 }
-                Word d = res.First();
+                //Word d = res.First();
                 string[] conjverbal = d.Commen.Split(" ".ToCharArray());
                 if (conjverbal.Length < 3)
                     return;

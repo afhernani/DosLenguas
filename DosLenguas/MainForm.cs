@@ -66,6 +66,7 @@ namespace DosLenguas
 		void TextEspTextChanged(object sender, EventArgs e)
 		{
 			Debug.WriteLine(textEsp.Text);
+            if (!rdEsp.Checked) return;
 			//if (textEsp.Text.Equals(""))
 			//	textIng.Text = "";
 			if (colectionBocablos == null)
@@ -99,6 +100,7 @@ namespace DosLenguas
 		void TextIngTextChanged(object sender, EventArgs e)
 		{
 			Debug.WriteLine(textIng.Text);
+            if (!rdIng.Checked) return;
 			//if (textIng.Text.Equals(""))
 			//	textEsp.Text = "";
 			if (colectionBocablos == null)
