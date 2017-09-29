@@ -8,6 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
+using MongoDB.Driver.Linq;
 
 namespace DosLenguas
 {
@@ -25,7 +29,7 @@ namespace DosLenguas
         {
             InitializeComponent();
         }
-
+        int p = 0;
         private void Practice_Load(object sender, EventArgs e)
         {
             valor = new Random();
@@ -38,7 +42,31 @@ namespace DosLenguas
             colectionBocablos = db.GetCollection(tabla);
             //Todo: averiguar cuantos elementos hay en la base de datos
             // o seleccinar un elemento aleatorio en la base de datos ¿?
+            findword = AleatoryWorld();
+            richTextBoxExtrae.Text = findword.Ing;
+            //var randomDoc = db.collection.find({ DomainClass: "aClass"}).skip(random).limit(1);
+            //var res = from c in Palabras
+            //          where c..Esp.ToUpper() == verbosIregulares[p].ToUpper()
+            ////          select c;
+            //pasamos los resultados a la lista
         }
+        Word findword = new Word();
+        public Word AleatoryWorld()
+        {
+            var Palabras = colectionBocablos.AsQueryable<Word>();
+            var count = Palabras.Count<Word>();
+            p = valor.Next(1, count);
+            Word[] d = new Word[count];
+            int i = 0;
+            foreach (var item in Palabras)
+            {
+                d[i] = item;
+                i++;
+            }
+            Word r = d[p];
+            return r;
+        }
+
         //valida la respuesta.
         bool valida = false;
         private void btnAction_Click(object sender, EventArgs e)
@@ -49,6 +77,7 @@ namespace DosLenguas
             {
                 //Operaciones de validacion y errores de la respuesta.
                 //codigo....
+                richTextBoxExtrae.AppendText( "\n" + findword.Esp +"\n" +findword.Commen);
                 //ultima linea fin validacion
                 valida = true;
             }
@@ -59,6 +88,9 @@ namespace DosLenguas
                 //busca un nuevo registro aleatorio en la base de datos
                 //y lo presenta para ser evaluado.
                 //codigo ...
+                findword = AleatoryWorld();
+                richTextBoxExtrae.Text = findword.Ing;
+                richTextBoxRespuesta.Text = "";
                 //validacion a false
                 valida = false;
             }
