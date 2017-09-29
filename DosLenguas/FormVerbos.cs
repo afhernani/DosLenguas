@@ -22,20 +22,20 @@ namespace DosLenguas
 	/// </summary>
 	public partial class FormVerbos : Form
 	{
-		string[] verbosIregulares = {"surgir", "despertar(se)", "soportar", "golpear", "convertirse en", 
+		string[] verbosIregulares = {"surgir", "despertar(se)", "soportar", "golpear", "convertirse", 
 			"empezar", "doblar (se)", "apostar", "pujar", "encuadernar", "morder", 
 			"sangrar", "soplar", "romper", "criar", "traer", "construir", "quemar (se)", "estallar",
 			"comprar", "tirar", "coger", "elegir", "aferrarse", "venir", "costar", "arrastrar", "cortar", 
 			"tratar", "cavar", "hacer", "dibujar", "soñar", "beber", "conducir", "comer", "caer", 
 			"alimentar", "sentirse", "pelearse", "encontrar", "huir", "volar", "prohibir", "olvidar (se)",
-			"perdonar", "helar", "conseguir", "dar", "irse", "moler", "crecer", "colgar", "tener", 
-			"escuchar", "esconder (se)", "golpear", "agarrar (se)", "daño", "guardar", "arrodillarse", 
+			"perdonar", "helarse", "conseguir", "dar", "ir", "moler", "crecer", "colgar", "tener", 
+			"escuchar", "esconderse", "golpear", "agarrar (se)", "daño", "guardar", "arrodillarse", 
 			"conocer", "poner", "llevar", "apoyarse", "brincar", "aprender", "dejar", "prestar", 
-			"permitir", "echarse", "encender(se)", "perder", "hacer", "significar", 
+			"permitir", "echarse", "encender (se)", "perder", "hacer", "significar", 
 			"encontrar", "vencer (se)", "pagar", "poner", "leer", "montar", "sonar", 
 			"levantarse", "correr", "serrar", "decir", "ver", "buscar", "vender",
 			"enviar", "poner", "coser", "agitar", "esquilar", "brillar", "disparar", "mostrar", 
-			"encoger(se)", "cerrar(se)", "cantar"
+			"encoger (se)", "cerrarse", "cantar","coger"
 		};
 		Random valor;
 		MongoClient mc;
@@ -56,7 +56,7 @@ namespace DosLenguas
 			//
 		}
 		int total;
-		int p;
+		int p = 0;
 		void FormVerbosLoad(object sender, EventArgs e)
 		{
 			valor = new Random();
@@ -111,5 +111,32 @@ namespace DosLenguas
 			p = valor.Next(1, total);
 			lbvocablo.Text = verbosIregulares[p];
 		}
-	}
+
+        private void btnOrder_Click(object sender, EventArgs e)
+        {
+            
+            if (p >= verbosIregulares.Length || p < 0) p = 0;
+            lbvocablo.Text = verbosIregulares[p];
+            textBoxinfinitvo.Text = textBoxPasado.Text = textBoxparticipio.Text = "";
+            var Palabras = colectionBocablos.AsQueryable<Word>();
+            var res = from c in Palabras
+                      where c.Esp.ToUpper() == verbosIregulares[p].ToUpper()
+                      select c;
+            if (res.Count() >= 1)
+            {
+                foreach (Word element in res)
+                {
+                    richTextBox.Text = ("verbo: " + res.First().ToJson());
+                }
+                Word d = res.First();
+                string[] conjverbal = d.Commen.Split(" ".ToCharArray());
+                if (conjverbal.Length < 3)
+                    return;
+                textBoxinfinitvo.Text = conjverbal[0];
+                textBoxPasado.Text = conjverbal[1];
+                textBoxparticipio.Text = conjverbal[2];
+            }
+            p++;
+        }
+    }
 }
