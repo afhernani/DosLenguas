@@ -275,6 +275,12 @@ namespace DosLenguas
 			FormVerbos fv = new FormVerbos();
 			fv.Show(this);
 		}
-	}
+
+        private void btnPractica_Click(object sender, EventArgs e)
+        {
+            Practice practice = new Practice();
+            practice.Show(this);
+        }
+    }
 	
 }

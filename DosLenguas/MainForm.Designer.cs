@@ -222,6 +222,7 @@ namespace DosLenguas
             this.btnPractica.TabIndex = 14;
             this.btnPractica.Text = "P";
             this.btnPractica.UseVisualStyleBackColor = true;
+            this.btnPractica.Click += new System.EventHandler(this.btnPractica_Click);
             // 
             // MainForm
             // 
