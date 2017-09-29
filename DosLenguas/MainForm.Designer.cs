@@ -65,6 +65,7 @@ namespace DosLenguas
             this.btnModif = new System.Windows.Forms.Button();
             this.richTextCom = new System.Windows.Forms.RichTextBox();
             this.btnpracticaverbos = new System.Windows.Forms.Button();
+            this.btnPractica = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btStart
@@ -212,11 +213,22 @@ namespace DosLenguas
             this.btnpracticaverbos.UseVisualStyleBackColor = true;
             this.btnpracticaverbos.Click += new System.EventHandler(this.BtnpracticaverbosClick);
             // 
+            // btnPractica
+            // 
+            this.btnPractica.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPractica.Location = new System.Drawing.Point(114, 5);
+            this.btnPractica.Name = "btnPractica";
+            this.btnPractica.Size = new System.Drawing.Size(43, 24);
+            this.btnPractica.TabIndex = 14;
+            this.btnPractica.Text = "P";
+            this.btnPractica.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(439, 346);
+            this.Controls.Add(this.btnPractica);
             this.Controls.Add(this.btnpracticaverbos);
             this.Controls.Add(this.richTextCom);
             this.Controls.Add(this.btnModif);
@@ -239,5 +251,7 @@ namespace DosLenguas
             this.PerformLayout();
 
 		}
-	}
+
+        private System.Windows.Forms.Button btnPractica;
+    }
 }
