@@ -66,6 +66,8 @@ namespace DosLenguas
             this.richTextCom = new System.Windows.Forms.RichTextBox();
             this.btnpracticaverbos = new System.Windows.Forms.Button();
             this.btnPractica = new System.Windows.Forms.Button();
+            this.btbPlay = new System.Windows.Forms.Button();
+            this.btnAsociar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btStart
@@ -224,11 +226,35 @@ namespace DosLenguas
             this.btnPractica.UseVisualStyleBackColor = true;
             this.btnPractica.Click += new System.EventHandler(this.btnPractica_Click);
             // 
+            // btbPlay
+            // 
+            this.btbPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btbPlay.Image = ((System.Drawing.Image)(resources.GetObject("btbPlay.Image")));
+            this.btbPlay.Location = new System.Drawing.Point(280, 5);
+            this.btbPlay.Name = "btbPlay";
+            this.btbPlay.Size = new System.Drawing.Size(24, 24);
+            this.btbPlay.TabIndex = 15;
+            this.btbPlay.UseVisualStyleBackColor = true;
+            this.btbPlay.Click += new System.EventHandler(this.btbPlay_Click);
+            // 
+            // btnAsociar
+            // 
+            this.btnAsociar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAsociar.Image = ((System.Drawing.Image)(resources.GetObject("btnAsociar.Image")));
+            this.btnAsociar.Location = new System.Drawing.Point(310, 5);
+            this.btnAsociar.Name = "btnAsociar";
+            this.btnAsociar.Size = new System.Drawing.Size(24, 24);
+            this.btnAsociar.TabIndex = 16;
+            this.btnAsociar.UseVisualStyleBackColor = true;
+            this.btnAsociar.Click += new System.EventHandler(this.btnAsociar_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(439, 346);
+            this.Controls.Add(this.btnAsociar);
+            this.Controls.Add(this.btbPlay);
             this.Controls.Add(this.btnPractica);
             this.Controls.Add(this.btnpracticaverbos);
             this.Controls.Add(this.richTextCom);
@@ -254,5 +280,7 @@ namespace DosLenguas
 		}
 
         private System.Windows.Forms.Button btnPractica;
+        private System.Windows.Forms.Button btbPlay;
+        private System.Windows.Forms.Button btnAsociar;
     }
 }

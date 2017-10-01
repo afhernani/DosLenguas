@@ -95,12 +95,26 @@
       <DependentUpon>Practice.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="propiedades.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>propiedades.settings</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="typeword.cs" />
     <Compile Include="Word.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="propiedades.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>propiedades.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormFileAdd.resx">
@@ -114,6 +128,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Practice.resx">
       <DependentUpon>Practice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

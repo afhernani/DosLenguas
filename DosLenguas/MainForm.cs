@@ -16,6 +16,8 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace DosLenguas
 {
@@ -31,8 +33,11 @@ namespace DosLenguas
 		const string tabla = "bocablos";
 		MongoCollection colectionBocablos;
 		bool engToEsp = true;
-
-		public MainForm()
+        [DllImport("winmm.dll")]
+        private static extern long mciSendString(string strCommand,
+            StringBuilder strReturn, int iReturnLength,
+            IntPtr hwndCallback);
+        public MainForm()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -92,7 +97,8 @@ namespace DosLenguas
 					if (res.Count() >= 1) {
 						
 						textIng.Text = res.First().Ing;
-						richTextCom.Text = res.First().Commen;
+                        OnlyNamefile = res.First().Sound;
+                        richTextCom.Text = res.First().Commen;
 					}
 				}
 			}
@@ -127,6 +133,7 @@ namespace DosLenguas
 						
 						textEsp.Text = res.First().Esp;
 						richTextCom.Text = res.First().Commen;
+                        OnlyNamefile = res.First().Sound;
 					}
 				}
 				
@@ -140,6 +147,7 @@ namespace DosLenguas
 			colectionBocablos = db.GetCollection("bocablos");
 			if (!String.IsNullOrEmpty(textIng.Text) && !String.IsNullOrEmpty(textEsp.Text)) {
 				Word wd = new Word(textEsp.Text, textIng.Text, richTextCom.Text);
+                if(!string.IsNullOrEmpty(OnlyNamefile)) wd.Sound = OnlyNamefile;
 				var writeresult =colectionBocablos.Insert(wd);
 				richTextBox.Clear();
 				richTextBox.Text = writeresult.ToJson().ToString();
@@ -280,6 +288,39 @@ namespace DosLenguas
         {
             Practice practice = new Practice();
             practice.Show(this);
+        }
+        string fullNamefile = string.Empty;
+        string OnlyNamefile = string.Empty;
+        private void btnAsociar_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Audio Files (.mp3)|*.mp3|Audio Files (.wav)|*.wav";
+            dialog.InitialDirectory = propiedades.Default.dirsound;
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                string path = dialog.FileName;
+                fullNamefile = path;
+                OnlyNamefile = System.IO.Path.GetFileName(path);
+            }
+        }
+
+        private void btbPlay_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(OnlyNamefile)) return;
+            PlayMP3(System.IO.Path.Combine(propiedades.Default.dirsound, OnlyNamefile));
+        }
+        public void PlayMP3(string rutaArchivo)
+        {
+            string comandoMCI = string.Empty;
+            comandoMCI = "close miMP3";
+            mciSendString(comandoMCI, null, 0, IntPtr.Zero);
+            //Abrir el dispositivo MCI
+            comandoMCI = string.Format("open \"{0}\" type mpegvideo alias miMP3", rutaArchivo);
+            mciSendString(comandoMCI, null, 0, IntPtr.Zero);
+            //Reproducir el archivo abierto
+            comandoMCI = "play miMP3";
+            mciSendString(comandoMCI, null, 0, IntPtr.Zero);
         }
     }
 	

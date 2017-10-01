@@ -77,6 +77,7 @@ namespace DosLenguas
             {
                 //Operaciones de validacion y errores de la respuesta.
                 //codigo....
+                if (string.IsNullOrEmpty(textBoxRes.Text)) return;
                 richTextBoxExtrae.AppendText( "\n" + findword.Esp +"\n" +findword.Commen);
                 //ultima linea fin validacion
                 valida = true;
@@ -90,9 +91,39 @@ namespace DosLenguas
                 //codigo ...
                 findword = AleatoryWorld();
                 richTextBoxExtrae.Text = findword.Ing;
-                richTextBoxRespuesta.Text = "";
+                textBoxRes.Text = "";
                 //validacion a false
                 valida = false;
+            }
+        }
+
+        private void Practice_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                //todo: aqui vamos a establecer el escape de busqueda.
+                e.SuppressKeyPress = true;
+                btnAction_Click(this, new EventArgs());
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                e.SuppressKeyPress = true;
+                this.Close();
+            }
+        }
+
+        private void textBoxRes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                //todo: aqui vamos a establecer el escape de busqueda.
+                e.SuppressKeyPress = true;
+                btnAction_Click(this, new EventArgs());
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                e.SuppressKeyPress = true;
+                this.Close();
             }
         }
     }

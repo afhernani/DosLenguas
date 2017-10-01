@@ -22,6 +22,7 @@ namespace DosLenguas
 		public string Esp{ get; set; }
 		public string Ing{ get; set; }
 		public string Commen{get; set;}
+        public string Sound { get; set; }
 		public ObjectId _id{ get; set; }
 		public Word(string esp, string ing){
 			this.Esp = esp;
