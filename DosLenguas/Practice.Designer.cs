@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Practice));
             this.richTextBoxExtrae = new System.Windows.Forms.RichTextBox();
             this.btnAction = new System.Windows.Forms.Button();
             this.textBoxRes = new System.Windows.Forms.TextBox();
+            this.btbPlay = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBoxExtrae
@@ -63,12 +65,23 @@
             this.textBoxRes.TabIndex = 3;
             this.textBoxRes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxRes_KeyDown);
             // 
+            // btbPlay
+            // 
+            this.btbPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btbPlay.Image = ((System.Drawing.Image)(resources.GetObject("btbPlay.Image")));
+            this.btbPlay.Location = new System.Drawing.Point(12, 174);
+            this.btbPlay.Name = "btbPlay";
+            this.btbPlay.Size = new System.Drawing.Size(24, 24);
+            this.btbPlay.TabIndex = 16;
+            this.btbPlay.UseVisualStyleBackColor = true;
+            // 
             // Practice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnAction;
             this.ClientSize = new System.Drawing.Size(599, 216);
+            this.Controls.Add(this.btbPlay);
             this.Controls.Add(this.textBoxRes);
             this.Controls.Add(this.btnAction);
             this.Controls.Add(this.richTextBoxExtrae);
@@ -86,5 +99,6 @@
         private System.Windows.Forms.RichTextBox richTextBoxExtrae;
         private System.Windows.Forms.Button btnAction;
         private System.Windows.Forms.TextBox textBoxRes;
+        private System.Windows.Forms.Button btbPlay;
     }
 }

@@ -258,6 +258,7 @@ namespace DosLenguas
 					Word d = res.First();
 					d.Esp = textEsp.Text; //modificamos el registro
 					d.Commen = richTextCom.Text;
+                    d.Sound = OnlyNamefile;
 					colectionBocablos.Save(d); //y guardamos el registro
 					richTextBox.Text=("registro modificado con éxito: " + d.ToJson());
 				}
@@ -272,6 +273,7 @@ namespace DosLenguas
 					Word d = resing.First();
 					d.Ing = textIng.Text; //modificamos el registro
 					d.Commen = richTextCom.Text;
+                    d.Sound = OnlyNamefile;
 					colectionBocablos.Save(d); //y guardamos el registro
 					richTextBox.Text=("registro modificado con éxito: " + d.ToJson());
 				}
@@ -289,7 +291,7 @@ namespace DosLenguas
             Practice practice = new Practice();
             practice.Show(this);
         }
-        string fullNamefile = string.Empty;
+        
         string OnlyNamefile = string.Empty;
         private void btnAsociar_Click(object sender, EventArgs e)
         {
@@ -300,7 +302,6 @@ namespace DosLenguas
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 string path = dialog.FileName;
-                fullNamefile = path;
                 OnlyNamefile = System.IO.Path.GetFileName(path);
             }
         }
@@ -321,6 +322,12 @@ namespace DosLenguas
             //Reproducir el archivo abierto
             comandoMCI = "play miMP3";
             mciSendString(comandoMCI, null, 0, IntPtr.Zero);
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            Settings form = new Settings();
+            form.ShowDialog();
         }
     }
 	

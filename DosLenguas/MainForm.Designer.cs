@@ -68,6 +68,7 @@ namespace DosLenguas
             this.btnPractica = new System.Windows.Forms.Button();
             this.btbPlay = new System.Windows.Forms.Button();
             this.btnAsociar = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btStart
@@ -248,11 +249,23 @@ namespace DosLenguas
             this.btnAsociar.UseVisualStyleBackColor = true;
             this.btnAsociar.Click += new System.EventHandler(this.btnAsociar_Click);
             // 
+            // btnSettings
+            // 
+            this.btnSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
+            this.btnSettings.Location = new System.Drawing.Point(403, 310);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(24, 24);
+            this.btnSettings.TabIndex = 17;
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(439, 346);
+            this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnAsociar);
             this.Controls.Add(this.btbPlay);
             this.Controls.Add(this.btnPractica);
@@ -282,5 +295,6 @@ namespace DosLenguas
         private System.Windows.Forms.Button btnPractica;
         private System.Windows.Forms.Button btbPlay;
         private System.Windows.Forms.Button btnAsociar;
+        private System.Windows.Forms.Button btnSettings;
     }
 }

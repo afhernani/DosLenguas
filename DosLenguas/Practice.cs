@@ -12,6 +12,8 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace DosLenguas
 {
@@ -24,6 +26,11 @@ namespace DosLenguas
         const string basedatos = "dic";
         const string tabla = "bocablos";
         MongoCollection colectionBocablos;
+
+        [DllImport("winmm.dll")]
+        private static extern long mciSendString(string strCommand,
+            StringBuilder strReturn, int iReturnLength,
+            IntPtr hwndCallback);
 
         public Practice()
         {
@@ -125,6 +132,23 @@ namespace DosLenguas
                 e.SuppressKeyPress = true;
                 this.Close();
             }
+        }
+        private void btbPlay_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(findword.Sound)) return;
+            PlayMP3(System.IO.Path.Combine(propiedades.Default.dirsound, findword.Sound));
+        }
+        public void PlayMP3(string rutaArchivo)
+        {
+            string comandoMCI = string.Empty;
+            comandoMCI = "close miMP3";
+            mciSendString(comandoMCI, null, 0, IntPtr.Zero);
+            //Abrir el dispositivo MCI
+            comandoMCI = string.Format("open \"{0}\" type mpegvideo alias miMP3", rutaArchivo);
+            mciSendString(comandoMCI, null, 0, IntPtr.Zero);
+            //Reproducir el archivo abierto
+            comandoMCI = "play miMP3";
+            mciSendString(comandoMCI, null, 0, IntPtr.Zero);
         }
     }
 }
