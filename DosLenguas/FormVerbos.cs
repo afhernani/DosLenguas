@@ -10,10 +10,12 @@ using System;
 using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
+using System.Text;
 
 namespace DosLenguas
 {
@@ -22,20 +24,28 @@ namespace DosLenguas
 	/// </summary>
 	public partial class FormVerbos : Form
 	{
-		string[] verbosIregulares = {"surgir", "despertar(se)", "soportar", "golpear", "convertirse", 
-			"empezar", "doblar (se)", "apostar", "pujar", "encuadernar", "morder", 
-			"sangrar", "soplar", "romper", "criar", "traer", "construir", "quemar (se)", "estallar",
-			"comprar", "tirar", "coger", "elegir", "aferrarse", "venir", "costar", "arrastrar", "cortar", 
-			"tratar", "cavar", "hacer", "dibujar", "soñar", "beber", "conducir", "comer", "caer", 
-			"alimentar", "sentirse", "pelearse", "encontrar", "huir", "volar", "prohibir", "olvidar (se)",
-			"perdonar", "helarse", "conseguir", "dar", "ir", "moler", "crecer", "colgar", "tener", 
-			"escuchar", "esconderse", "agarrar (se)", "daño", "guardar", "arrodillarse", 
-			"conocer", "poner", "llevar", "apoyarse", "brincar", "aprender", "dejar", "prestar", 
-			"permitir", "echarse", "encender (se)", "perder", "hacer", "significar", 
-			"encontrar", "vencer", "pagar", "poner", "leer", "montar", "sonar", 
-			"levantarse", "correr", "serrar", "decir", "ver", "buscar", "vender",
-			"enviar", "poner", "coser", "agitar", "esquilar", "brillar", "disparar", "mostrar", 
-			"encoger (se)", "cerrarse", "cantar","coger"
+		string[] verbosIregulares = {
+            "surgir", "despertar(se)", "soportar", "golpear", "convertirse", 
+			"empezar", "doblar (se)", "apostar", "pujar", "encuadernar",
+            "morder", "sangrar", "soplar", "romper", "criar",
+            "traer", "construir", "quemar (se)", "estallar", "comprar",
+            "tirar", "coger", "elegir", "aferrarse", "venir",
+            "costar", "arrastrar", "cortar", "tratar", "cavar",
+            "hacer", "dibujar", "soñar", "beber", "conducir",
+            "comer", "caer", "alimentar", "sentirse", "pelearse",
+            "encontrar", "huir", "volar", "prohibir", "olvidar (se)",
+			"perdonar", "helarse", "conseguir", "dar", "ir",
+            "moler", "crecer", "colgar", "tener", "escuchar",
+            "esconderse", "agarrar (se)", "daño", "guardar", "arrodillarse", 
+			"conocer", "poner", "llevar", "apoyarse", "brincar",
+            "aprender", "dejar", "prestar", "permitir", "echarse",
+            "encender (se)", "perder", "hacer", "significar", "encontrar",
+            "vencer", "pagar", "poner", "leer", "montar",
+            "sonar", "levantarse", "correr", "serrar", "decir",
+            "ver", "buscar", "vender", "enviar", "poner",
+            "coser", "agitar", "esquilar", "brillar", "disparar",
+            "mostrar", "encoger (se)", "cerrarse", "cantar","coger",
+            "superar"
 		};
 		Random valor;
 		MongoClient mc;
@@ -44,7 +54,11 @@ namespace DosLenguas
 		const string basedatos = "dic";
 		const string tabla = "bocablos";
 		MongoCollection colectionBocablos;
-		public FormVerbos()
+        [DllImport("winmm.dll")]
+        private static extern long mciSendString(string strCommand,
+            StringBuilder strReturn, int iReturnLength,
+            IntPtr hwndCallback);
+        public FormVerbos()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -80,9 +94,11 @@ namespace DosLenguas
 			if (res.Count() >= 1) {
 				foreach (Word element in res) {
 					richTextBox.Text = ("verbo: " + res.First().ToJson());
-				}
-				Word d = res.First();
-				string[] conjverbal = d.Commen.Split(" ".ToCharArray());
+                    if (element.Esp.Equals(verbosIregulares[p]))
+                        selectedWorld = element;
+                }
+				//Word d = res.First();
+				string[] conjverbal = selectedWorld.Commen.Split(" ".ToCharArray());
 				if (conjverbal.Length < 3)
 					return;
 				if (textBoxinfinitvo.Text.Equals(conjverbal[0]))
@@ -111,7 +127,7 @@ namespace DosLenguas
 			p = valor.Next(1, total);
 			lbvocablo.Text = verbosIregulares[p];
 		}
-
+        Word selectedWorld = new Word();
         private void btnOrder_Click(object sender, EventArgs e)
         {
             
@@ -124,15 +140,15 @@ namespace DosLenguas
                       select c;
             if (res.Count() >= 1)
             {
-                Word d = new Word();
+                
                 foreach (Word element in res)
                 {
                     richTextBox.Text = ("verbo: " + res.First().ToJson());
                     if (element.Esp.Equals(verbosIregulares[p]))
-                        d = element;
+                        selectedWorld = element;
                 }
                 //Word d = res.First();
-                string[] conjverbal = d.Commen.Split(" ".ToCharArray());
+                string[] conjverbal = selectedWorld.Commen.Split(" ".ToCharArray());
                 if (conjverbal.Length < 3)
                     return;
                 textBoxinfinitvo.Text = conjverbal[0];
@@ -140,6 +156,23 @@ namespace DosLenguas
                 textBoxparticipio.Text = conjverbal[2];
             }
             p++;
+        }
+        private void btbPlay_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(selectedWorld.Sound)) return;
+            PlayMP3(System.IO.Path.Combine(propiedades.Default.dirsound, selectedWorld.Sound));
+        }
+        public void PlayMP3(string rutaArchivo)
+        {
+            string comandoMCI = string.Empty;
+            comandoMCI = "close miMP3";
+            mciSendString(comandoMCI, null, 0, IntPtr.Zero);
+            //Abrir el dispositivo MCI
+            comandoMCI = string.Format("open \"{0}\" type mpegvideo alias miMP3", rutaArchivo);
+            mciSendString(comandoMCI, null, 0, IntPtr.Zero);
+            //Reproducir el archivo abierto
+            comandoMCI = "play miMP3";
+            mciSendString(comandoMCI, null, 0, IntPtr.Zero);
         }
     }
 }

@@ -15,7 +15,21 @@ namespace DosLenguas
 	/// </summary>
 	public class Word
 	{
-		
+        public enum  eFuncion
+        {
+            Sustantivo,
+            Pronombre,
+            Adjetivo,
+            Verbo,
+            Adverbio,
+            Preposicion,
+            Conjuncion,
+            Locacion,
+            Interjeccion,
+            Oracion
+        }
+        eFuncion funcion = eFuncion.Sustantivo;
+        public eFuncion Funcion { get; set; }
 		public Word()
 		{
 		}

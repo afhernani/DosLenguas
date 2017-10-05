@@ -32,6 +32,7 @@ namespace DosLenguas
 		const string basedatos = "dic";
 		const string tabla = "bocablos";
 		MongoCollection colectionBocablos;
+        Word selectedworld= new Word();
 		bool engToEsp = true;
         [DllImport("winmm.dll")]
         private static extern long mciSendString(string strCommand,
@@ -99,6 +100,8 @@ namespace DosLenguas
 						textIng.Text = res.First().Ing;
                         OnlyNamefile = res.First().Sound;
                         richTextCom.Text = res.First().Commen;
+                        selectedworld = res.First();
+                        comboBoxFuncion.SelectedIndex = (int)selectedworld.Funcion;
 					}
 				}
 			}
@@ -134,7 +137,9 @@ namespace DosLenguas
 						textEsp.Text = res.First().Esp;
 						richTextCom.Text = res.First().Commen;
                         OnlyNamefile = res.First().Sound;
-					}
+                        selectedworld = res.First();
+                        comboBoxFuncion.SelectedIndex = (int)selectedworld.Funcion;
+                    }
 				}
 				
 			}
@@ -162,7 +167,8 @@ namespace DosLenguas
 			textIng.ReadOnly = false;
 			btnIngles.Enabled = false;
 			btnFormFile.Enabled = false;
-		}
+            btnModif.Enabled = false;
+        }
 		void RdEspCheckedChanged(object sender, EventArgs e)
 		{
 			engToEsp = false;
@@ -170,13 +176,15 @@ namespace DosLenguas
 			textEsp.ReadOnly = false;
 			btnIngles.Enabled = false;
 			btnFormFile.Enabled = false;
-		}
+            btnModif.Enabled = false;
+        }
 		void RdAddCheckedChanged(object sender, EventArgs e)
 		{
 			textIng.ReadOnly = false;
 			textEsp.ReadOnly = false;
 			btnIngles.Enabled = true;
 			btnFormFile.Enabled = true;
+            btnModif.Enabled = true;
 		}
 				
 		void BtnFormFileClick(object sender, EventArgs e)
@@ -244,40 +252,22 @@ namespace DosLenguas
 		void BtnModifClick(object sender, EventArgs e)
 		{
 			if (rdAdd.Checked && db != null) {
+                {
+                    selectedworld.Esp = textEsp.Text;
+                    selectedworld.Ing = textIng.Text;
+                    selectedworld.Commen = richTextCom.Text;
+                    selectedworld.Sound = OnlyNamefile;
+                }
 				colectionBocablos = db.GetCollection("bocablos");
-				var Palabras = colectionBocablos.AsQueryable<Word>();
-				var res = from c in Palabras
-				         where c.Ing.ToUpper() == textIng.Text.ToUpper()
-				         select c;
-				//pasamos los resultados a la lista
-				if (res.Count() >= 1) {
-					foreach (Word element in res) {
-						richTextBox.Text=("primer valor encontrado: " + res.First().ToJson());
-						richTextBox.Text+=("IsExist diccionario :" + element.ToJson());
-					}
-					Word d = res.First();
-					d.Esp = textEsp.Text; //modificamos el registro
-					d.Commen = richTextCom.Text;
-                    d.Sound = OnlyNamefile;
-					colectionBocablos.Save(d); //y guardamos el registro
-					richTextBox.Text=("registro modificado con éxito: " + d.ToJson());
-				}
-				var resing = from c in Palabras
-				         where c.Esp.ToUpper() == textEsp.Text.ToUpper()
-				         select c;
-				if (resing.Count() >= 1) {
-					foreach (Word element in resing) {
-						richTextBox.Text=("primer valor encontrado: " + resing.First().ToJson());
-						richTextBox.Text+=("IsExist diccionario :" + element.ToJson());
-					}
-					Word d = resing.First();
-					d.Ing = textIng.Text; //modificamos el registro
-					d.Commen = richTextCom.Text;
-                    d.Sound = OnlyNamefile;
-					colectionBocablos.Save(d); //y guardamos el registro
-					richTextBox.Text=("registro modificado con éxito: " + d.ToJson());
-				}
-				
+                colectionBocablos.Save(selectedworld);
+                { //limpiamos los registro
+                    textEsp.Text = "";
+                    textIng.Text = "";
+                    richTextCom.Text = "";
+                    OnlyNamefile = "";
+                    richTextBox.Text = "{}";
+                }
+                rdIng.Checked = true;
 			}
 		}
 		void BtnpracticaverbosClick(object sender, EventArgs e)
@@ -328,6 +318,31 @@ namespace DosLenguas
         {
             Settings form = new Settings();
             form.ShowDialog();
+        }
+
+        string[] funcion ={
+                "Sustantivo",
+                "Pronombre",
+                "Adjetivo",
+                "Verbo",
+                "Adverbio",
+                "Preposicion",
+                "Conjuncion",
+                "Locacion",
+                "Interjeccion",
+                "Oracion"
+            };
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            
+            comboBoxFuncion.Items.AddRange(funcion);
+            comboBoxFuncion.SelectedIndex = 0;
+        }
+
+        private void comboBoxFuncion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedworld.Funcion = (Word.eFuncion)Enum.Parse(typeof(Word.eFuncion), funcion[comboBoxFuncion.SelectedIndex]);
         }
     }
 	

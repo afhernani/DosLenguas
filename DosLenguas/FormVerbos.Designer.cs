@@ -47,6 +47,7 @@ namespace DosLenguas
 		/// </summary>
 		private void InitializeComponent()
 		{
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVerbos));
             this.lbvocablo = new System.Windows.Forms.Label();
             this.textBoxinfinitvo = new System.Windows.Forms.TextBox();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
@@ -59,6 +60,7 @@ namespace DosLenguas
             this.label4 = new System.Windows.Forms.Label();
             this.btnNext = new System.Windows.Forms.Button();
             this.btnOrder = new System.Windows.Forms.Button();
+            this.btbPlay = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbvocablo
@@ -171,11 +173,23 @@ namespace DosLenguas
             this.btnOrder.UseVisualStyleBackColor = true;
             this.btnOrder.Click += new System.EventHandler(this.btnOrder_Click);
             // 
+            // btbPlay
+            // 
+            this.btbPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btbPlay.Image = ((System.Drawing.Image)(resources.GetObject("btbPlay.Image")));
+            this.btbPlay.Location = new System.Drawing.Point(204, 10);
+            this.btbPlay.Name = "btbPlay";
+            this.btbPlay.Size = new System.Drawing.Size(24, 24);
+            this.btbPlay.TabIndex = 16;
+            this.btbPlay.UseVisualStyleBackColor = true;
+            this.btbPlay.Click += new System.EventHandler(this.btbPlay_Click);
+            // 
             // FormVerbos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(435, 308);
+            this.Controls.Add(this.btbPlay);
             this.Controls.Add(this.btnOrder);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.label4);
@@ -198,5 +212,6 @@ namespace DosLenguas
 		}
 
         private System.Windows.Forms.Button btnOrder;
+        private System.Windows.Forms.Button btbPlay;
     }
 }

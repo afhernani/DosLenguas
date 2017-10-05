@@ -69,6 +69,7 @@ namespace DosLenguas
             this.btbPlay = new System.Windows.Forms.Button();
             this.btnAsociar = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
+            this.comboBoxFuncion = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btStart
@@ -88,7 +89,7 @@ namespace DosLenguas
             this.textIng.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textIng.Location = new System.Drawing.Point(12, 35);
             this.textIng.Name = "textIng";
-            this.textIng.Size = new System.Drawing.Size(366, 24);
+            this.textIng.Size = new System.Drawing.Size(292, 24);
             this.textIng.TabIndex = 1;
             this.textIng.TextChanged += new System.EventHandler(this.TextIngTextChanged);
             // 
@@ -187,6 +188,7 @@ namespace DosLenguas
             // 
             // btnModif
             // 
+            this.btnModif.Enabled = false;
             this.btnModif.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModif.Location = new System.Drawing.Point(384, 5);
             this.btnModif.Name = "btnModif";
@@ -260,11 +262,22 @@ namespace DosLenguas
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
+            // comboBoxFuncion
+            // 
+            this.comboBoxFuncion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxFuncion.FormattingEnabled = true;
+            this.comboBoxFuncion.Location = new System.Drawing.Point(309, 33);
+            this.comboBoxFuncion.Name = "comboBoxFuncion";
+            this.comboBoxFuncion.Size = new System.Drawing.Size(69, 26);
+            this.comboBoxFuncion.TabIndex = 18;
+            this.comboBoxFuncion.SelectedIndexChanged += new System.EventHandler(this.comboBoxFuncion_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(439, 346);
+            this.Controls.Add(this.comboBoxFuncion);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnAsociar);
             this.Controls.Add(this.btbPlay);
@@ -287,6 +300,7 @@ namespace DosLenguas
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "DosLenguas";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,5 +310,6 @@ namespace DosLenguas
         private System.Windows.Forms.Button btbPlay;
         private System.Windows.Forms.Button btnAsociar;
         private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.ComboBox comboBoxFuncion;
     }
 }
