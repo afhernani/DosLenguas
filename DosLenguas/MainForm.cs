@@ -77,7 +77,7 @@ namespace DosLenguas
 			//	textIng.Text = "";
 			if (colectionBocablos == null)
 				return;
-			richTextBox.Clear();
+            listBox.Items.Clear();
 			richTextCom.Clear();
 			if (rdAdd.Checked)
 				return;
@@ -90,8 +90,8 @@ namespace DosLenguas
 				//pasamos los resultados a la lista
 				
 				foreach (Word element in res) {
-					Debug.WriteLine(element.ToJson());
-					richTextBox.Text += element.ToJson();
+                    //Debug.WriteLine(element.ToJson());
+                    listBox.Items.Add(element);//.ToJson());
 				}
 				if (engToEsp == false) {
 					textIng.Text = "";
@@ -114,8 +114,8 @@ namespace DosLenguas
 			//	textEsp.Text = "";
 			if (colectionBocablos == null)
 				return;
-			richTextBox.Clear();
-			richTextCom.Clear();
+            listBox.Items.Clear();
+            richTextCom.Clear();
 			if (rdAdd.Checked)
 				return;
 			if (!String.IsNullOrEmpty(textIng.Text)) {
@@ -127,8 +127,8 @@ namespace DosLenguas
 				//pasamos los resultados a la lista
 				
 				foreach (Word element in res) {
-					Debug.WriteLine(element.ToJson());
-					richTextBox.Text += element.ToJson();
+                    //Debug.WriteLine(element.ToJson());
+                    listBox.Items.Add(element);//.ToJson());
 				}
 				if (engToEsp) {
 					textEsp.Text = "";
@@ -153,13 +153,15 @@ namespace DosLenguas
 			if (!String.IsNullOrEmpty(textIng.Text) && !String.IsNullOrEmpty(textEsp.Text)) {
 				Word wd = new Word(textEsp.Text, textIng.Text, richTextCom.Text);
                 if(!string.IsNullOrEmpty(OnlyNamefile)) wd.Sound = OnlyNamefile;
-				var writeresult =colectionBocablos.Insert(wd);
-				richTextBox.Clear();
-				richTextBox.Text = writeresult.ToJson().ToString();
+                selectedworld.Funcion = (Word.eFuncion)Enum.Parse(typeof(Word.eFuncion), funcion[comboBoxFuncion.SelectedIndex]);
+
+                var writeresult =colectionBocablos.Insert(wd);
+                listBox.Items.Clear();
+                listBox.Items.Add(writeresult.ToJson().ToString());
 			}
-			textIng.Clear();
-			textEsp.Clear();
-		}
+            LimpiaRegistros();
+            rdIng.Checked = true;
+        }
 		void RdIngCheckedChanged(object sender, EventArgs e)
 		{
 			engToEsp = true;
@@ -168,6 +170,7 @@ namespace DosLenguas
 			btnIngles.Enabled = false;
 			btnFormFile.Enabled = false;
             btnModif.Enabled = false;
+            textIng.Focus();
         }
 		void RdEspCheckedChanged(object sender, EventArgs e)
 		{
@@ -177,6 +180,7 @@ namespace DosLenguas
 			btnIngles.Enabled = false;
 			btnFormFile.Enabled = false;
             btnModif.Enabled = false;
+            textEsp.Focus();
         }
 		void RdAddCheckedChanged(object sender, EventArgs e)
 		{
@@ -185,7 +189,8 @@ namespace DosLenguas
 			btnIngles.Enabled = true;
 			btnFormFile.Enabled = true;
             btnModif.Enabled = true;
-		}
+            textEsp.Focus();
+        }
 				
 		void BtnFormFileClick(object sender, EventArgs e)
 		{
@@ -235,8 +240,8 @@ namespace DosLenguas
 			//pasamos los resultados a la lista
 			if (res.Count() >= 1) {
 				foreach (Word element in res) {
-					richTextBox.Text="primer valor encontrado: " + res.First().ToJson();
-					richTextBox.Text+="IsExist diccionario :" + element.ToJson();
+                    listBox.Items.Add( "primer valor encontrado: " + res.First().ToJson());
+                    listBox.Items.Add("IsExist diccionario :" + element.ToJson());
 				}
 				return true;
 			}
@@ -257,19 +262,26 @@ namespace DosLenguas
                     selectedworld.Ing = textIng.Text;
                     selectedworld.Commen = richTextCom.Text;
                     selectedworld.Sound = OnlyNamefile;
+                    selectedworld.Funcion = (Word.eFuncion)Enum.Parse(typeof(Word.eFuncion), funcion[comboBoxFuncion.SelectedIndex]);
                 }
 				colectionBocablos = db.GetCollection("bocablos");
                 colectionBocablos.Save(selectedworld);
-                { //limpiamos los registro
-                    textEsp.Text = "";
-                    textIng.Text = "";
-                    richTextCom.Text = "";
-                    OnlyNamefile = "";
-                    richTextBox.Text = "{}";
-                }
+                LimpiaRegistros();
                 rdIng.Checked = true;
 			}
 		}
+        /// <summary>
+        /// establece los valores de los registros a una posicion inicial
+        /// </summary>
+        private void LimpiaRegistros()
+        {
+            textEsp.Text = "";
+            textIng.Text = "";
+            richTextCom.Text = "";
+            OnlyNamefile = "";
+            listBox.Items.Clear();
+            comboBoxFuncion.SelectedIndex = 0;
+        }
 		void BtnpracticaverbosClick(object sender, EventArgs e)
 		{
 			FormVerbos fv = new FormVerbos();
@@ -343,6 +355,37 @@ namespace DosLenguas
         private void comboBoxFuncion_SelectedIndexChanged(object sender, EventArgs e)
         {
             selectedworld.Funcion = (Word.eFuncion)Enum.Parse(typeof(Word.eFuncion), funcion[comboBoxFuncion.SelectedIndex]);
+        }
+
+        private void listBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(listBox.SelectedIndex != -1)
+            {
+                selectedworld = (Word)listBox.SelectedItem;
+                ActualizarSelectedWord();
+            }
+        }
+        private void ActualizarSelectedWord()
+        {
+            textEsp.Text = selectedworld.Esp;
+            textIng.Text = selectedworld.Ing;
+            richTextCom.Text = selectedworld.Commen;
+            OnlyNamefile = selectedworld.Sound;
+            comboBoxFuncion.SelectedIndex = (int)selectedworld.Funcion;
+            btndelate.Enabled = true;
+        }
+
+        private void btndelate_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Esta seguro que desea borrar el registro", 
+                "Aviso", MessageBoxButtons.OKCancel,MessageBoxIcon.Exclamation) 
+                == DialogResult.OK)
+            {
+                colectionBocablos = db.GetCollection("bocablos");
+                var querya = Query<Word>.EQ(r => r._id, selectedworld._id);
+                colectionBocablos.Remove(querya);
+                btndelate.Enabled = false;
+            }
         }
     }
 	

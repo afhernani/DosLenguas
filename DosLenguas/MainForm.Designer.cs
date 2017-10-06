@@ -21,7 +21,6 @@ namespace DosLenguas
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Button btnIngles;
 		private System.Windows.Forms.Button btnFormFile;
-		private System.Windows.Forms.RichTextBox richTextBox;
 		private System.Windows.Forms.RadioButton rdIng;
 		private System.Windows.Forms.RadioButton rdEsp;
 		private System.Windows.Forms.RadioButton rdAdd;
@@ -58,7 +57,6 @@ namespace DosLenguas
             this.label2 = new System.Windows.Forms.Label();
             this.btnIngles = new System.Windows.Forms.Button();
             this.btnFormFile = new System.Windows.Forms.Button();
-            this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.rdIng = new System.Windows.Forms.RadioButton();
             this.rdEsp = new System.Windows.Forms.RadioButton();
             this.rdAdd = new System.Windows.Forms.RadioButton();
@@ -70,6 +68,8 @@ namespace DosLenguas
             this.btnAsociar = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.comboBoxFuncion = new System.Windows.Forms.ComboBox();
+            this.listBox = new System.Windows.Forms.ListBox();
+            this.btndelate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btStart
@@ -144,15 +144,6 @@ namespace DosLenguas
             this.btnFormFile.Text = "File";
             this.btnFormFile.UseVisualStyleBackColor = true;
             this.btnFormFile.Click += new System.EventHandler(this.BtnFormFileClick);
-            // 
-            // richTextBox
-            // 
-            this.richTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox.Location = new System.Drawing.Point(12, 210);
-            this.richTextBox.Name = "richTextBox";
-            this.richTextBox.Size = new System.Drawing.Size(343, 124);
-            this.richTextBox.TabIndex = 7;
-            this.richTextBox.Text = "";
             // 
             // rdIng
             // 
@@ -255,7 +246,7 @@ namespace DosLenguas
             // 
             this.btnSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
-            this.btnSettings.Location = new System.Drawing.Point(403, 310);
+            this.btnSettings.Location = new System.Drawing.Point(403, 303);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(24, 24);
             this.btnSettings.TabIndex = 17;
@@ -272,11 +263,37 @@ namespace DosLenguas
             this.comboBoxFuncion.TabIndex = 18;
             this.comboBoxFuncion.SelectedIndexChanged += new System.EventHandler(this.comboBoxFuncion_SelectedIndexChanged);
             // 
+            // listBox
+            // 
+            this.listBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBox.FormattingEnabled = true;
+            this.listBox.HorizontalScrollbar = true;
+            this.listBox.ItemHeight = 18;
+            this.listBox.Location = new System.Drawing.Point(12, 215);
+            this.listBox.Name = "listBox";
+            this.listBox.Size = new System.Drawing.Size(343, 112);
+            this.listBox.TabIndex = 19;
+            this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
+            // 
+            // btndelate
+            // 
+            this.btndelate.Enabled = false;
+            this.btndelate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btndelate.Image = ((System.Drawing.Image)(resources.GetObject("btndelate.Image")));
+            this.btndelate.Location = new System.Drawing.Point(361, 293);
+            this.btndelate.Name = "btndelate";
+            this.btndelate.Size = new System.Drawing.Size(36, 34);
+            this.btndelate.TabIndex = 20;
+            this.btndelate.UseVisualStyleBackColor = true;
+            this.btndelate.Click += new System.EventHandler(this.btndelate_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(439, 346);
+            this.Controls.Add(this.btndelate);
+            this.Controls.Add(this.listBox);
             this.Controls.Add(this.comboBoxFuncion);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnAsociar);
@@ -288,7 +305,6 @@ namespace DosLenguas
             this.Controls.Add(this.rdAdd);
             this.Controls.Add(this.rdEsp);
             this.Controls.Add(this.rdIng);
-            this.Controls.Add(this.richTextBox);
             this.Controls.Add(this.btnFormFile);
             this.Controls.Add(this.btnIngles);
             this.Controls.Add(this.label2);
@@ -311,5 +327,7 @@ namespace DosLenguas
         private System.Windows.Forms.Button btnAsociar;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.ComboBox comboBoxFuncion;
+        private System.Windows.Forms.ListBox listBox;
+        private System.Windows.Forms.Button btndelate;
     }
 }
