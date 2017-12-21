@@ -94,6 +94,7 @@ namespace DosLenguas
             this.btnMakeListdb.TabIndex = 3;
             this.btnMakeListdb.Text = "Make list fom db";
             this.btnMakeListdb.UseVisualStyleBackColor = false;
+            this.btnMakeListdb.Click += new System.EventHandler(this.btnMakeListdb_Click);
             // 
             // FormFileAdd
             // 

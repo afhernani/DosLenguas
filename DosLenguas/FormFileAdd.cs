@@ -4,6 +4,10 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
+using MongoDB.Driver.Linq;
 
 namespace DosLenguas
 {
@@ -92,7 +96,8 @@ namespace DosLenguas
 		void ProcesarCadena(string cadena){
 			
 			if(!String.IsNullOrEmpty(cadena)){
-				string esp, ing, comt;
+                //string esp, ing, comt;
+                obtenida = null;
 				string[] fillout = cadena.Split('|');
                 fillout = fillout.Where(x => !String.IsNullOrEmpty(x)).ToArray();
                 //la estructura valor{ ingles, español, comentario, funcion, sonido}
@@ -110,7 +115,6 @@ namespace DosLenguas
                         obtenida.Commen = "";
                         obtenida.Funcion= (Word.eFuncion)Enum.Parse(typeof(Word.eFuncion), "Sustantivo");
                         obtenida.Sound = "";
-                        LunchWord();
                         break;
                     case 3:
                         //hacer el tercer parametro commentarios
@@ -137,27 +141,28 @@ namespace DosLenguas
                                     "el texto de cadena " + cadena);
                         break;
                 }
-    //            if(fillout.Length>=2){
-				//	esp = fillout[1];
-				//	ing = fillout[0];
-					
-				//	ing = ing.Trim('.');
-				//	ing = ing.Trim(' ');
-					
-				//	esp = esp.Trim('.');
-				//	esp = esp.Trim(' ');
-				//	if(fillout.Length==3){
-				//		comt = fillout[2];
-				//		comt = comt.Trim('.');
-				//		comt = comt.Trim(' ');
-				//			LunchWord(esp, ing, comt);
-				//	}
-				//	if(fillout.Length==2)
-				//		LunchWord(esp, ing);
-				//}else{
-				//	MessageBox.Show("No existe paridad en " +
-				//	                "el texto de cadena " + cadena);
-				//}
+                //            if(fillout.Length>=2){
+                //	esp = fillout[1];
+                //	ing = fillout[0];
+
+                //	ing = ing.Trim('.');
+                //	ing = ing.Trim(' ');
+
+                //	esp = esp.Trim('.');
+                //	esp = esp.Trim(' ');
+                //	if(fillout.Length==3){
+                //		comt = fillout[2];
+                //		comt = comt.Trim('.');
+                //		comt = comt.Trim(' ');
+                //			LunchWord(esp, ing, comt);
+                //	}
+                //	if(fillout.Length==2)
+                //		LunchWord(esp, ing);
+                //}else{
+                //	MessageBox.Show("No existe paridad en " +
+                //	                "el texto de cadena " + cadena);
+                //}
+                if (obtenida != null) LunchWord();
 			}
 		}
         //a nivel demodulo.
@@ -187,5 +192,35 @@ namespace DosLenguas
             if (forminterfas != null)
                 forminterfas.AddWordFromFile(obtenida);
         }
-	}
+        /// <summary>
+        /// out data from db.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnMakeListdb_Click(object sender, EventArgs e)
+        {
+            //Do: dar salida a los valores almacenados en la base de datos
+            //en forma de fichero de texto.
+            MongoClient mc;
+            MongoServer mongo;
+            MongoDatabase db;
+            const string basedatos = "dic";
+            const string tabla = "bocablos";
+            MongoCollection colectionBocablos;
+
+            mc = new MongoClient("mongodb://localhost");
+            mongo = mc.GetServer();
+            db = mongo.GetDatabase(basedatos);
+            colectionBocablos = db.GetCollection(tabla);
+
+            var Palabras = colectionBocablos.AsQueryable<Word>();
+
+            foreach (Word element in Palabras)
+            {
+                string dato = string.Format("{1} | {0} | {2} | {3} | {4} \n", element.Ing,
+                    element.Esp, element.Commen, funcion[(int)element.Funcion], element.Sound);
+                richTextBox.AppendText(element.ToJson() + "\n" );
+            }
+        }
+    }
 }
