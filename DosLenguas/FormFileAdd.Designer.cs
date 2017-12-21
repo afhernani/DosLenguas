@@ -39,62 +39,78 @@ namespace DosLenguas
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.btnOpenfile = new System.Windows.Forms.Button();
-			this.richTextBox = new System.Windows.Forms.RichTextBox();
-			this.btnNext = new System.Windows.Forms.Button();
-			this.SuspendLayout();
-			// 
-			// btnOpenfile
-			// 
-			this.btnOpenfile.BackColor = System.Drawing.Color.Khaki;
-			this.btnOpenfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnOpenfile.ForeColor = System.Drawing.Color.Crimson;
-			this.btnOpenfile.Location = new System.Drawing.Point(2, 2);
-			this.btnOpenfile.Name = "btnOpenfile";
-			this.btnOpenfile.Size = new System.Drawing.Size(94, 30);
-			this.btnOpenfile.TabIndex = 0;
-			this.btnOpenfile.Text = "Open File";
-			this.btnOpenfile.UseVisualStyleBackColor = false;
-			this.btnOpenfile.Click += new System.EventHandler(this.BtnOpenFileClick);
-			// 
-			// richTextBox
-			// 
-			this.richTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-			| System.Windows.Forms.AnchorStyles.Left) 
-			| System.Windows.Forms.AnchorStyles.Right)));
-			this.richTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.richTextBox.Location = new System.Drawing.Point(2, 38);
-			this.richTextBox.Name = "richTextBox";
-			this.richTextBox.Size = new System.Drawing.Size(421, 217);
-			this.richTextBox.TabIndex = 1;
-			this.richTextBox.Text = "";
-			// 
-			// btnNext
-			// 
-			this.btnNext.BackColor = System.Drawing.Color.Khaki;
-			this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnNext.ForeColor = System.Drawing.Color.Crimson;
-			this.btnNext.Location = new System.Drawing.Point(102, 2);
-			this.btnNext.Name = "btnNext";
-			this.btnNext.Size = new System.Drawing.Size(67, 30);
-			this.btnNext.TabIndex = 2;
-			this.btnNext.Text = "Next";
-			this.btnNext.UseVisualStyleBackColor = false;
-			this.btnNext.Click += new System.EventHandler(this.BtnNextClick);
-			// 
-			// FormFileAdd
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(426, 262);
-			this.Controls.Add(this.btnNext);
-			this.Controls.Add(this.richTextBox);
-			this.Controls.Add(this.btnOpenfile);
-			this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.Name = "FormFileAdd";
-			this.Text = "FormFileAdd";
-			this.ResumeLayout(false);
+            this.btnOpenfile = new System.Windows.Forms.Button();
+            this.richTextBox = new System.Windows.Forms.RichTextBox();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.btnMakeListdb = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // btnOpenfile
+            // 
+            this.btnOpenfile.BackColor = System.Drawing.Color.Khaki;
+            this.btnOpenfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenfile.ForeColor = System.Drawing.Color.Crimson;
+            this.btnOpenfile.Location = new System.Drawing.Point(2, 2);
+            this.btnOpenfile.Name = "btnOpenfile";
+            this.btnOpenfile.Size = new System.Drawing.Size(94, 30);
+            this.btnOpenfile.TabIndex = 0;
+            this.btnOpenfile.Text = "Open File";
+            this.btnOpenfile.UseVisualStyleBackColor = false;
+            this.btnOpenfile.Click += new System.EventHandler(this.BtnOpenFileClick);
+            // 
+            // richTextBox
+            // 
+            this.richTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox.Location = new System.Drawing.Point(2, 38);
+            this.richTextBox.Name = "richTextBox";
+            this.richTextBox.Size = new System.Drawing.Size(421, 217);
+            this.richTextBox.TabIndex = 1;
+            this.richTextBox.Text = "";
+            // 
+            // btnNext
+            // 
+            this.btnNext.BackColor = System.Drawing.Color.Khaki;
+            this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNext.ForeColor = System.Drawing.Color.Crimson;
+            this.btnNext.Location = new System.Drawing.Point(102, 2);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(67, 30);
+            this.btnNext.TabIndex = 2;
+            this.btnNext.Text = "Next";
+            this.btnNext.UseVisualStyleBackColor = false;
+            this.btnNext.Click += new System.EventHandler(this.BtnNextClick);
+            // 
+            // btnMakeListdb
+            // 
+            this.btnMakeListdb.BackColor = System.Drawing.Color.Khaki;
+            this.btnMakeListdb.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMakeListdb.ForeColor = System.Drawing.Color.Crimson;
+            this.btnMakeListdb.Location = new System.Drawing.Point(175, 2);
+            this.btnMakeListdb.Name = "btnMakeListdb";
+            this.btnMakeListdb.Size = new System.Drawing.Size(138, 30);
+            this.btnMakeListdb.TabIndex = 3;
+            this.btnMakeListdb.Text = "Make list fom db";
+            this.btnMakeListdb.UseVisualStyleBackColor = false;
+            // 
+            // FormFileAdd
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(426, 262);
+            this.Controls.Add(this.btnMakeListdb);
+            this.Controls.Add(this.btnNext);
+            this.Controls.Add(this.richTextBox);
+            this.Controls.Add(this.btnOpenfile);
+            this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.Name = "FormFileAdd";
+            this.Text = "FormFileAdd";
+            this.ResumeLayout(false);
 
 		}
-	}
+
+        private System.Windows.Forms.Button btnMakeListdb;
+    }
 }

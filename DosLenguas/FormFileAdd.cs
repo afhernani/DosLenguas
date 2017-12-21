@@ -12,7 +12,20 @@ namespace DosLenguas
 	/// </summary>
 	public partial class FormFileAdd: Form
 	{
-		public FormFileAdd()
+        string[] funcion ={
+                "Sustantivo",
+                "Pronombre",
+                "Adjetivo",
+                "Verbo",
+                "Adverbio",
+                "Preposicion",
+                "Conjuncion",
+                "Locacion",
+                "Interjeccion",
+                "Oracion"
+            };
+
+        public FormFileAdd()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -80,44 +93,99 @@ namespace DosLenguas
 			
 			if(!String.IsNullOrEmpty(cadena)){
 				string esp, ing, comt;
-				string[] fillout = cadena.Split(':');
-				if(fillout.Length>=2){
-					esp = fillout[1];
-					ing = fillout[0];
+				string[] fillout = cadena.Split('|');
+                fillout = fillout.Where(x => !String.IsNullOrEmpty(x)).ToArray();
+                //la estructura valor{ ingles, español, comentario, funcion, sonido}
+                //eliminamos espacios en blanco o signo de puntuacion
+                for (int i = 0; i < fillout.Length; i++)
+                {
+                    fillout[i] = fillout[i].Trim('.', ' ');
+                }
+                
+                switch (fillout.Length)
+                {
+                    case 2:
+                        //hacer el primero es ingles el segundo es
+                        obtenida = new Word(fillout[1], fillout[0]);
+                        obtenida.Commen = "";
+                        obtenida.Funcion= (Word.eFuncion)Enum.Parse(typeof(Word.eFuncion), "Sustantivo");
+                        obtenida.Sound = "";
+                        LunchWord();
+                        break;
+                    case 3:
+                        //hacer el tercer parametro commentarios
+                        obtenida = new Word(fillout[1], fillout[0], fillout[2]);
+                        obtenida.Funcion = (Word.eFuncion)Enum.Parse(typeof(Word.eFuncion), "Sustantivo");
+                        obtenida.Sound = "";
+                        break;
+                    case 4:
+                        //hacer el cuarto la función que es un múmero.
+                        obtenida = new Word(fillout[1], fillout[0], fillout[2]);
+                        //int ValorFunc = int.Parse(fillout[3]);
+                        obtenida.Funcion = (Word.eFuncion)Enum.Parse(typeof(Word.eFuncion), fillout[3]);
+                        obtenida.Sound = "";
+                        break;
+                    case 5:
+                        //hacer
+                        obtenida = new Word(fillout[1], fillout[0], fillout[2]);
+                        //int ValorFunc = int.Parse(fillout[3]);
+                        obtenida.Funcion = (Word.eFuncion)Enum.Parse(typeof(Word.eFuncion), fillout[3]);
+                        obtenida.Sound = fillout[4];
+                        break;
+                    default:
+                        MessageBox.Show("No existe paridad en " +
+                                    "el texto de cadena " + cadena);
+                        break;
+                }
+    //            if(fillout.Length>=2){
+				//	esp = fillout[1];
+				//	ing = fillout[0];
 					
-					ing = ing.Trim('.');
-					ing = ing.Trim(' ');
+				//	ing = ing.Trim('.');
+				//	ing = ing.Trim(' ');
 					
-					esp = esp.Trim('.');
-					esp = esp.Trim(' ');
-					if(fillout.Length==3){
-						comt = fillout[2];
-						comt = comt.Trim('.');
-						comt = comt.Trim(' ');
-							LunchWord(esp, ing, comt);
-					}
-					if(fillout.Length==2)
-						LunchWord(esp, ing);
-				}else{
-					MessageBox.Show("No existe paridad en " +
-					                "el texto de cadena " + cadena);
-				}
+				//	esp = esp.Trim('.');
+				//	esp = esp.Trim(' ');
+				//	if(fillout.Length==3){
+				//		comt = fillout[2];
+				//		comt = comt.Trim('.');
+				//		comt = comt.Trim(' ');
+				//			LunchWord(esp, ing, comt);
+				//	}
+				//	if(fillout.Length==2)
+				//		LunchWord(esp, ing);
+				//}else{
+				//	MessageBox.Show("No existe paridad en " +
+				//	                "el texto de cadena " + cadena);
+				//}
 			}
 		}
-		
-		void LunchWord(string esp, string ing){
-			//hacemos un castin y transformamos el formulario en una
-			//interfaz.
-			IForm forminterfas = this.Owner as IForm;
-			if (forminterfas != null)
-				forminterfas.AddWordFromFile(new Word(esp, ing));
-		}
-		void LunchWord(string esp, string ing, string comt){
-			//hacemos un castin y transformamos el formulario en una
-			//interfaz.
-			IForm forminterfas = this.Owner as IForm;
-			if (forminterfas != null)
-				forminterfas.AddWordFromFile(new Word(esp, ing, comt));
-		}
+        //a nivel demodulo.
+        Word obtenida;
+		//void LunchWord(string esp, string ing){
+		//	//hacemos un castin y transformamos el formulario en una
+		//	//interfaz.
+		//	IForm forminterfas = this.Owner as IForm;
+		//	if (forminterfas != null)
+		//		forminterfas.AddWordFromFile(new Word(esp, ing));
+		//}
+		//void LunchWord(string esp, string ing, string comt){
+		//	//hacemos un castin y transformamos el formulario en una
+		//	//interfaz.
+		//	IForm forminterfas = this.Owner as IForm;
+		//	if (forminterfas != null)
+		//		forminterfas.AddWordFromFile(new Word(esp, ing, comt));
+		//}
+        /// <summary>
+        /// Lanzamos la palabra al editor
+        /// </summary>
+        void LunchWord()
+        {
+            //hacemos un castin y transformamos el formulario en una
+            //interfaz.
+            IForm forminterfas = this.Owner as IForm;
+            if (forminterfas != null)
+                forminterfas.AddWordFromFile(obtenida);
+        }
 	}
 }

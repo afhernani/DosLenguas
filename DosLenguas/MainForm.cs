@@ -144,6 +144,11 @@ namespace DosLenguas
 				
 			}
 		}
+        /// <summary>
+        /// adicionar un registro nuevo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		void BtnInglesClick(object sender, EventArgs e)
 		{
 			
@@ -153,13 +158,14 @@ namespace DosLenguas
 			if (!String.IsNullOrEmpty(textIng.Text) && !String.IsNullOrEmpty(textEsp.Text)) {
 				Word wd = new Word(textEsp.Text, textIng.Text, richTextCom.Text);
                 if(!string.IsNullOrEmpty(OnlyNamefile)) wd.Sound = OnlyNamefile;
-                selectedworld.Funcion = (Word.eFuncion)Enum.Parse(typeof(Word.eFuncion), funcion[comboBoxFuncion.SelectedIndex]);
+                //adicionamos el tipo de función que es el vocablo
+                wd.Funcion = (Word.eFuncion)Enum.Parse(typeof(Word.eFuncion), funcion[comboBoxFuncion.SelectedIndex]);
 
-                var writeresult =colectionBocablos.Insert(wd);
-                listBox.Items.Clear();
-                listBox.Items.Add(writeresult.ToJson().ToString());
+                var writeresult =colectionBocablos.Insert(wd); //insertamos en nuevo registro
+                //listBox.Items.Clear();
 			}
             LimpiaRegistros();
+            //listBox.Items.Add(writeresult.ToJson().ToString());
             rdIng.Checked = true;
         }
 		void RdIngCheckedChanged(object sender, EventArgs e)
@@ -270,6 +276,13 @@ namespace DosLenguas
                 rdIng.Checked = true;
 			}
 		}
+        /// <summary>
+        /// 
+        /// </summary>
+        void MakeNewRegister()
+        {
+
+        }
         /// <summary>
         /// establece los valores de los registros a una posicion inicial
         /// </summary>

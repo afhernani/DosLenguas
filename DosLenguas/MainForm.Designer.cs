@@ -123,26 +123,29 @@ namespace DosLenguas
             // 
             // btnIngles
             // 
+            this.btnIngles.BackColor = System.Drawing.Color.BurlyWood;
             this.btnIngles.Enabled = false;
-            this.btnIngles.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIngles.Location = new System.Drawing.Point(384, 35);
+            this.btnIngles.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIngles.Location = new System.Drawing.Point(382, 33);
             this.btnIngles.Name = "btnIngles";
-            this.btnIngles.Size = new System.Drawing.Size(43, 24);
+            this.btnIngles.Size = new System.Drawing.Size(53, 26);
             this.btnIngles.TabIndex = 5;
             this.btnIngles.Text = "Add";
-            this.btnIngles.UseVisualStyleBackColor = true;
+            this.btnIngles.UseVisualStyleBackColor = false;
             this.btnIngles.Click += new System.EventHandler(this.BtnInglesClick);
             // 
             // btnFormFile
             // 
+            this.btnFormFile.BackColor = System.Drawing.Color.Wheat;
             this.btnFormFile.Enabled = false;
-            this.btnFormFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFormFile.Location = new System.Drawing.Point(384, 84);
+            this.btnFormFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFormFile.ForeColor = System.Drawing.Color.DarkRed;
+            this.btnFormFile.Location = new System.Drawing.Point(382, 84);
             this.btnFormFile.Name = "btnFormFile";
-            this.btnFormFile.Size = new System.Drawing.Size(38, 25);
+            this.btnFormFile.Size = new System.Drawing.Size(53, 25);
             this.btnFormFile.TabIndex = 6;
             this.btnFormFile.Text = "File";
-            this.btnFormFile.UseVisualStyleBackColor = true;
+            this.btnFormFile.UseVisualStyleBackColor = false;
             this.btnFormFile.Click += new System.EventHandler(this.BtnFormFileClick);
             // 
             // rdIng
@@ -179,14 +182,15 @@ namespace DosLenguas
             // 
             // btnModif
             // 
+            this.btnModif.BackColor = System.Drawing.Color.BurlyWood;
             this.btnModif.Enabled = false;
-            this.btnModif.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModif.Location = new System.Drawing.Point(384, 5);
+            this.btnModif.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnModif.Location = new System.Drawing.Point(382, 2);
             this.btnModif.Name = "btnModif";
-            this.btnModif.Size = new System.Drawing.Size(43, 24);
+            this.btnModif.Size = new System.Drawing.Size(53, 27);
             this.btnModif.TabIndex = 11;
-            this.btnModif.Text = "M";
-            this.btnModif.UseVisualStyleBackColor = true;
+            this.btnModif.Text = "Mod";
+            this.btnModif.UseVisualStyleBackColor = false;
             this.btnModif.Click += new System.EventHandler(this.BtnModifClick);
             // 
             // richTextCom

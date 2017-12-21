@@ -50,7 +50,7 @@ namespace DosLenguas
 		
 		public override string ToString()
 		{
-			return string.Format("[Palabra Es={0}, In={1}, Commen = {2}, Id={3}]", Esp, Ing, Commen, _id);
+			return string.Format("[{0}, {1}, {2}, {3}, {4}, {5}]", Esp, Ing, Commen, funcion, Sound, _id);
 		}
 	}
 }
